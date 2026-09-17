@@ -614,8 +614,10 @@ html.has-motion [data-mascara] img { clip-path: inset(0 0 100% 0); }
 }
 .tarjeta p { color: var(--tinta-suave); max-width: 52ch; }
 .tarjeta__nota {
-  font-family: var(--serif);
+  /* en sans: la cursiva de Fraunces no trae el signo del euro */
+  font-family: var(--sans);
   font-style: italic;
+  font-size: .95rem;
   color: var(--fento) !important;
   margin-bottom: 0;
 }
@@ -1091,8 +1093,14 @@ html.has-motion .hero__acciones,
 html.has-motion .hero__pista,
 html.has-motion .hero__pie { opacity: 0; }
 
-html.has-motion [data-reveal] .palabra { overflow: hidden; }
-html.has-motion [data-reveal] .letra { display: inline-block; transform: translateY(102%); }
+/* El recorte de la palabra tiene que dejar sitio a los rabos de la «y» y la
+   «p»: si no, el titular sale decapitado por abajo. */
+html.has-motion [data-reveal] .palabra {
+  overflow: hidden;
+  padding-bottom: .16em;
+  margin-bottom: -.16em;
+}
+html.has-motion [data-reveal] .letra { display: inline-block; transform: translateY(110%); }
 
 html.has-motion .aparece { opacity: 0; transform: translateY(26px); }
 
@@ -1102,7 +1110,9 @@ html.has-motion .aparece { opacity: 0; transform: translateY(26px); }
 /* ---------- menú móvil ---------- */
 
 @media (max-width: 980px) {
-  .hamburguesa { display: inline-flex; }
+  /* el botón tiene que quedar POR ENCIMA de la cortina del menú: si no,
+     abre pero no cierra */
+  .hamburguesa { display: inline-flex; position: relative; z-index: 120; }
   .nav {
     position: fixed;
     inset: 0;
@@ -1117,6 +1127,7 @@ html.has-motion .aparece { opacity: 0; transform: translateY(26px); }
     visibility: hidden;
   }
   .nav--abierto { transform: translateY(0); visibility: visible; }
+  .marca { position: relative; z-index: 120; }
   .nav__lista {
     flex-direction: column;
     align-items: center;
@@ -1130,6 +1141,12 @@ html.has-motion .aparece { opacity: 0; transform: translateY(26px); }
 }
 
 @media (max-width: 620px) {
+  .cookie-banner { padding: 1rem; bottom: .6rem; }
+  .cookie-banner h2 { font-size: 1.05rem; }
+  .cookie-banner p { font-size: .82rem; }
+  .cookie-banner__acciones { width: 100%; justify-content: space-between; }
+  .hero__titular { font-size: clamp(2.3rem, 1.1rem + 6vw, 3.2rem); }
+  .hero { padding-top: 6rem; }
   .campo--doble { grid-template-columns: 1fr; }
   .reservar__datos li, .llegar__lista li { grid-template-columns: minmax(0, 1fr); gap: .15rem; }
   .ano__barra { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .3rem 2px; }

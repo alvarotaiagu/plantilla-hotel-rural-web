@@ -14,10 +14,10 @@ caliente, en dos anchos: `-800.jpg` y `-1600.jpg`.
 |---|---|---|---|
 | `valle-*.jpg` | Hero, fondo del cristal empañado | Tobi & Chris | https://www.pexels.com/photo/9348873/ |
 | `casa-*.jpg` | Sección «La casa» y mes de octubre | ERIC POUSSIN | https://www.pexels.com/photo/13856663/ |
-| `hab-solaina-*.jpg` | Habitación Solaina | Erik Schereder | https://www.pexels.com/photo/13009039/ |
+| `hab-solaina-*.jpg` | Habitación Solaina | Ksenia Chernaya | https://www.pexels.com/photo/4740488/ |
 | `hab-fento-*.jpg` | Habitación Fento | Ahmed Aqeely | https://www.pexels.com/photo/14465275/ |
 | `hab-lousado-*.jpg` | Habitación Lousado | AS Photography | https://www.pexels.com/photo/97083/ |
-| `hab-bidueira-*.jpg` | Habitación Bidueira | Ksenia Chernaya | https://www.pexels.com/photo/4740488/ |
+| `hab-bidueira-*.jpg` | Habitación Bidueira | Erik Schereder | https://www.pexels.com/photo/13009039/ |
 | `hab-palleira-*.jpg` | Habitación Palleira | Max Vakhtbovych | https://www.pexels.com/photo/7746578/ |
 | `desayuno-*.jpg` | Sección «La mesa» | Kaboompics.com | https://www.pexels.com/photo/4963923/ |
 | `lareira-*.jpg` | Meses de invierno | Olga Lioncat | https://www.pexels.com/photo/7245418/ |

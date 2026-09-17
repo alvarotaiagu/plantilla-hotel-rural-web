@@ -479,7 +479,7 @@
     var ctx = lienzo.getContext('2d');
     if (!ctx) { lienzo.style.display = 'none'; return; }
 
-    var ancho = 0, alto = 0, dpr = 1;
+    var ancho = 0, alto = 0, dpr = 0;
     var vaho = document.createElement('canvas');   // sprite de vaho cacheado
     var goma = document.createElement('canvas');   // sprite de borrado suave
     var brillo = document.createElement('canvas'); // sprite de gota
@@ -487,61 +487,68 @@
     var despeje = 0;         // 0 = empañado, 1 = limpio (lo mueve el scroll)
     var visible = true;
     var animando = false;
-    var lazo = null;
 
+    // El tamaño se vuelve a medir con ResizeObserver: en móvil el 100svh
+    // cambia al aparecer y desaparecer la barra del navegador, y un búfer
+    // más pequeño que la caja se estira y deja bandas.
     function medir() {
       var caja = lienzo.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 1.6);
-      ancho = Math.max(Math.floor(caja.width), 1);
-      alto = Math.max(Math.floor(caja.height), 1);
-      lienzo.width = Math.floor(ancho * dpr);
-      lienzo.height = Math.floor(alto * dpr);
+      var nAncho = Math.max(Math.round(caja.width), 1);
+      var nAlto = Math.max(Math.round(caja.height), 1);
+      var nDpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      if (nAncho === ancho && nAlto === alto && nDpr === dpr) return;
+      ancho = nAncho; alto = nAlto; dpr = nDpr;
+      lienzo.width = Math.round(ancho * dpr);
+      lienzo.height = Math.round(alto * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       prepararSprites();
+      ctx.clearRect(0, 0, ancho, alto);
       empanar(1);
+      var cuantas = Math.max(10, Math.min(Math.round((ancho * alto) / 34000), 24));
       gotas = [];
-      for (var i = 0; i < 26; i++) gotas.push(nuevaGota(true));
+      for (var i = 0; i < cuantas; i++) gotas.push(nuevaGota(true));
     }
 
     function prepararSprites() {
-      // Vaho: capa cálida + grano. Se dibuja UNA vez y se reutiliza con
-      // drawImage; nunca ctx.filter por fotograma.
+      // Vaho: capa cálida translúcida + grano. Se dibuja UNA vez y se
+      // reutiliza con drawImage; nunca ctx.filter por fotograma.
       vaho.width = ancho; vaho.height = alto;
       var v = vaho.getContext('2d');
       v.clearRect(0, 0, ancho, alto);
       var deg = v.createLinearGradient(0, 0, 0, alto);
-      deg.addColorStop(0, 'rgba(238, 231, 219, 0.90)');
-      deg.addColorStop(0.55, 'rgba(232, 222, 206, 0.78)');
-      deg.addColorStop(1, 'rgba(214, 204, 188, 0.62)');
+      deg.addColorStop(0, 'rgba(240, 233, 221, 0.72)');
+      deg.addColorStop(0.55, 'rgba(233, 224, 209, 0.60)');
+      deg.addColorStop(1, 'rgba(216, 206, 190, 0.44)');
       v.fillStyle = deg;
       v.fillRect(0, 0, ancho, alto);
-      // grano: puntitos claros dispersos
-      v.globalAlpha = 0.5;
-      for (var i = 0; i < Math.floor((ancho * alto) / 2600); i++) {
-        var r = Math.random() * 2.4 + 0.4;
-        v.fillStyle = Math.random() > 0.5 ? 'rgba(255,255,255,.5)' : 'rgba(180,172,158,.35)';
+      v.globalAlpha = 0.35;
+      for (var i = 0; i < Math.floor((ancho * alto) / 3400); i++) {
+        var r = Math.random() * 1.8 + 0.3;
+        v.fillStyle = Math.random() > 0.5 ? 'rgba(255,255,255,.55)' : 'rgba(176,168,152,.3)';
         v.beginPath();
         v.arc(Math.random() * ancho, Math.random() * alto, r, 0, Math.PI * 2);
         v.fill();
       }
       v.globalAlpha = 1;
 
-      var tamGoma = 150;
+      var tamGoma = 128;
       goma.width = goma.height = tamGoma;
       var g = goma.getContext('2d');
+      g.clearRect(0, 0, tamGoma, tamGoma);
       var rad = g.createRadialGradient(tamGoma / 2, tamGoma / 2, 0, tamGoma / 2, tamGoma / 2, tamGoma / 2);
       rad.addColorStop(0, 'rgba(0,0,0,1)');
-      rad.addColorStop(0.55, 'rgba(0,0,0,.8)');
+      rad.addColorStop(0.5, 'rgba(0,0,0,.72)');
       rad.addColorStop(1, 'rgba(0,0,0,0)');
       g.fillStyle = rad;
       g.fillRect(0, 0, tamGoma, tamGoma);
 
-      var tamG = 64;
+      var tamG = 48;
       brillo.width = brillo.height = tamG;
       var b = brillo.getContext('2d');
-      var rb = b.createRadialGradient(tamG * 0.38, tamG * 0.34, 1, tamG / 2, tamG / 2, tamG / 2);
-      rb.addColorStop(0, 'rgba(255,255,255,.55)');
-      rb.addColorStop(0.45, 'rgba(255,255,255,.10)');
+      b.clearRect(0, 0, tamG, tamG);
+      var rb = b.createRadialGradient(tamG * 0.36, tamG * 0.32, 1, tamG / 2, tamG / 2, tamG / 2);
+      rb.addColorStop(0, 'rgba(255,255,255,.45)');
+      rb.addColorStop(0.5, 'rgba(255,255,255,.08)');
       rb.addColorStop(1, 'rgba(255,255,255,0)');
       b.fillStyle = rb;
       b.beginPath();
@@ -550,6 +557,7 @@
     }
 
     function empanar(alfa) {
+      if (alfa <= 0) return;
       ctx.globalCompositeOperation = 'source-over';
       ctx.globalAlpha = alfa;
       ctx.drawImage(vaho, 0, 0, ancho, alto);
@@ -557,12 +565,13 @@
     }
 
     function nuevaGota(inicial) {
+      var r = 2 + Math.random() * 4.5;
       return {
         x: Math.random() * ancho,
-        y: inicial ? Math.random() * alto : -20,
-        r: 3 + Math.random() * 9,
+        y: inicial ? Math.random() * alto : -10 - Math.random() * 40,
+        r: r,
         v: 0,
-        espera: Math.random() * 260
+        espera: inicial ? Math.random() * 400 : Math.random() * 160
       };
     }
 
@@ -576,31 +585,39 @@
 
     function fotograma() {
       if (!visible || document.hidden) { animando = false; return; }
-      // se vuelve a empañar muy despacio, menos si el scroll ya despejó
-      empanar(0.010 * (1 - despeje));
+
+      // se vuelve a empañar muy despacio; si el scroll ya despejó, nada
+      empanar(0.009 * (1 - despeje));
       if (despeje > 0.01) {
         ctx.globalCompositeOperation = 'destination-out';
-        ctx.fillStyle = 'rgba(0,0,0,' + (despeje * 0.045).toFixed(4) + ')';
+        ctx.fillStyle = 'rgba(0,0,0,' + (despeje * 0.05).toFixed(4) + ')';
         ctx.fillRect(0, 0, ancho, alto);
         ctx.globalCompositeOperation = 'source-over';
       }
 
       for (var i = 0; i < gotas.length; i++) {
         var g = gotas[i];
-        if (g.espera > 0) { g.espera -= 1; continue; }
-        g.v += 0.012 * (g.r / 6);
+        if (g.espera > 0) { g.espera -= 1; if (g.espera > 0) continue; }
+        var antesY = g.y;
+        g.v = Math.min(g.v + 0.008 * (g.r / 4), 1.9);
         g.y += g.v;
-        borrar(g.x, g.y, g.r * 1.5, 0.85);
-        ctx.drawImage(brillo, g.x - g.r, g.y - g.r, g.r * 2, g.r * 2);
+        g.x += (Math.random() - 0.5) * 0.25;
+        // la estela es más fina que la gota: se dibuja entre las dos posiciones
+        var pasos = Math.max(1, Math.ceil((g.y - antesY) / 2));
+        for (var p = 1; p <= pasos; p++) {
+          borrar(g.x, antesY + ((g.y - antesY) * p) / pasos, g.r * 0.55, 0.30);
+        }
+        borrar(g.x, g.y, g.r * 1.05, 0.85);
+        ctx.drawImage(brillo, g.x - g.r * 1.1, g.y - g.r * 1.1, g.r * 2.2, g.r * 2.2);
         if (g.y - g.r > alto) gotas[i] = nuevaGota(false);
       }
-      lazo = requestAnimationFrame(fotograma);
+      requestAnimationFrame(fotograma);
     }
 
     function arrancar() {
       if (animando) return;
       animando = true;
-      lazo = requestAnimationFrame(fotograma);
+      requestAnimationFrame(fotograma);
     }
 
     function limpiarConDedo(e) {
@@ -609,17 +626,21 @@
       var x = punto.clientX - caja.left;
       var y = punto.clientY - caja.top;
       if (x < 0 || y < 0 || x > ancho || y > alto) return;
-      borrar(x, y, 46, 0.75);
+      borrar(x, y, 42, 0.55);
     }
 
     medir();
     arrancar();
 
-    var temporizador;
-    window.addEventListener('resize', function () {
-      clearTimeout(temporizador);
-      temporizador = setTimeout(function () { medir(); arrancar(); }, 220);
-    });
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(function () { medir(); arrancar(); }).observe(lienzo);
+    } else {
+      var temporizador;
+      window.addEventListener('resize', function () {
+        clearTimeout(temporizador);
+        temporizador = setTimeout(function () { medir(); arrancar(); }, 220);
+      });
+    }
 
     window.addEventListener('mousemove', limpiarConDedo, { passive: true });
     lienzo.addEventListener('touchmove', limpiarConDedo, { passive: true });
