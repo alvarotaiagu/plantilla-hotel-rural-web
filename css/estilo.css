@@ -321,8 +321,8 @@ html.has-motion .preloader {
 .hero__velo {
   position: absolute; inset: 0; z-index: -1;
   background:
-    linear-gradient(to top, rgba(24, 30, 24, .82) 0%, rgba(24, 30, 24, .42) 38%, rgba(24, 30, 24, .08) 68%),
-    linear-gradient(to right, rgba(24, 30, 24, .5), transparent 62%);
+    linear-gradient(to top, rgba(24, 30, 24, .86) 0%, rgba(24, 30, 24, .58) 38%, rgba(24, 30, 24, .12) 72%),
+    linear-gradient(to right, rgba(24, 30, 24, .55), transparent 64%);
 }
 
 .hero__sobre {
@@ -330,7 +330,7 @@ html.has-motion .preloader {
   letter-spacing: .26em;
   text-transform: uppercase;
   margin-bottom: 1.2rem;
-  color: var(--arena);
+  color: #eadcc4;
 }
 .hero__titular {
   font-size: clamp(2.6rem, 1rem + 6.6vw, 6.4rem);

@@ -471,6 +471,17 @@
 
   /* ---------- 16. El cristal empañado (canvas del hero) ---------- */
 
+  /* El cristal empañado del hero.
+
+     Tres piezas, todas cacheadas fuera de pantalla (nunca ctx.filter ni
+     shadowBlur por fotograma):
+       · vaho    — la niebla cálida con su grano, pintada una sola vez.
+       · mascara — dónde se ha limpiado el cristal (gotas y dedo).
+       · brillo  — el reflejo de una gota.
+
+     Cada fotograma se REPINTA la niebla entera y se le resta la máscara.
+     No se compone la niebla sobre sí misma: repetir un alfa bajo cientos de
+     veces desvía el color canal a canal y el cristal acaba gris y rosa. */
   function iniciarCristal() {
     var lienzo = $('#cristal');
     if (!lienzo) return;
@@ -480,17 +491,19 @@
     if (!ctx) { lienzo.style.display = 'none'; return; }
 
     var ancho = 0, alto = 0, dpr = 0;
-    var vaho = document.createElement('canvas');   // sprite de vaho cacheado
-    var goma = document.createElement('canvas');   // sprite de borrado suave
-    var brillo = document.createElement('canvas'); // sprite de gota
+    var vaho = document.createElement('canvas');
+    var mascara = document.createElement('canvas');
+    var goma = document.createElement('canvas');
+    var brillo = document.createElement('canvas');
+    var mctx = null;
     var gotas = [];
     var despeje = 0;         // 0 = empañado, 1 = limpio (lo mueve el scroll)
     var visible = true;
     var animando = false;
 
-    // El tamaño se vuelve a medir con ResizeObserver: en móvil el 100svh
-    // cambia al aparecer y desaparecer la barra del navegador, y un búfer
-    // más pequeño que la caja se estira y deja bandas.
+    // Se remide con ResizeObserver: en móvil el 100svh cambia al aparecer y
+    // desaparecer la barra del navegador, y un búfer más pequeño que la caja
+    // se estira en bandas.
     function medir() {
       var caja = lienzo.getBoundingClientRect();
       var nAncho = Math.max(Math.round(caja.width), 1);
@@ -498,33 +511,40 @@
       var nDpr = Math.min(window.devicePixelRatio || 1, 1.5);
       if (nAncho === ancho && nAlto === alto && nDpr === dpr) return;
       ancho = nAncho; alto = nAlto; dpr = nDpr;
+
       lienzo.width = Math.round(ancho * dpr);
       lienzo.height = Math.round(alto * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      mascara.width = lienzo.width;
+      mascara.height = lienzo.height;
+      mctx = mascara.getContext('2d');
+      mctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
       prepararSprites();
-      ctx.clearRect(0, 0, ancho, alto);
-      empanar(1);
-      var cuantas = Math.max(10, Math.min(Math.round((ancho * alto) / 34000), 24));
+
+      var cuantas = Math.max(10, Math.min(Math.round((ancho * alto) / 34000), 22));
       gotas = [];
       for (var i = 0; i < cuantas; i++) gotas.push(nuevaGota(true));
+      pintar();
     }
 
     function prepararSprites() {
-      // Vaho: capa cálida translúcida + grano. Se dibuja UNA vez y se
-      // reutiliza con drawImage; nunca ctx.filter por fotograma.
-      vaho.width = ancho; vaho.height = alto;
+      vaho.width = Math.round(ancho * dpr);
+      vaho.height = Math.round(alto * dpr);
       var v = vaho.getContext('2d');
+      v.setTransform(dpr, 0, 0, dpr, 0, 0);
       v.clearRect(0, 0, ancho, alto);
       var deg = v.createLinearGradient(0, 0, 0, alto);
-      deg.addColorStop(0, 'rgba(240, 233, 221, 0.72)');
-      deg.addColorStop(0.55, 'rgba(233, 224, 209, 0.60)');
-      deg.addColorStop(1, 'rgba(216, 206, 190, 0.44)');
+      deg.addColorStop(0, 'rgba(241, 234, 223, 0.74)');
+      deg.addColorStop(0.55, 'rgba(234, 225, 210, 0.60)');
+      deg.addColorStop(1, 'rgba(217, 207, 191, 0.42)');
       v.fillStyle = deg;
       v.fillRect(0, 0, ancho, alto);
-      v.globalAlpha = 0.35;
-      for (var i = 0; i < Math.floor((ancho * alto) / 3400); i++) {
-        var r = Math.random() * 1.8 + 0.3;
-        v.fillStyle = Math.random() > 0.5 ? 'rgba(255,255,255,.55)' : 'rgba(176,168,152,.3)';
+      v.globalAlpha = 0.4;
+      for (var i = 0; i < Math.floor((ancho * alto) / 2200); i++) {
+        var r = Math.random() * 1.7 + 0.3;
+        v.fillStyle = Math.random() > 0.5 ? 'rgba(255,255,255,.6)' : 'rgba(174,166,150,.32)';
         v.beginPath();
         v.arc(Math.random() * ancho, Math.random() * alto, r, 0, Math.PI * 2);
         v.fill();
@@ -537,7 +557,7 @@
       g.clearRect(0, 0, tamGoma, tamGoma);
       var rad = g.createRadialGradient(tamGoma / 2, tamGoma / 2, 0, tamGoma / 2, tamGoma / 2, tamGoma / 2);
       rad.addColorStop(0, 'rgba(0,0,0,1)');
-      rad.addColorStop(0.5, 'rgba(0,0,0,.72)');
+      rad.addColorStop(0.5, 'rgba(0,0,0,.7)');
       rad.addColorStop(1, 'rgba(0,0,0,0)');
       g.fillStyle = rad;
       g.fillRect(0, 0, tamGoma, tamGoma);
@@ -547,21 +567,13 @@
       var b = brillo.getContext('2d');
       b.clearRect(0, 0, tamG, tamG);
       var rb = b.createRadialGradient(tamG * 0.36, tamG * 0.32, 1, tamG / 2, tamG / 2, tamG / 2);
-      rb.addColorStop(0, 'rgba(255,255,255,.45)');
-      rb.addColorStop(0.5, 'rgba(255,255,255,.08)');
+      rb.addColorStop(0, 'rgba(255,255,255,.5)');
+      rb.addColorStop(0.5, 'rgba(255,255,255,.09)');
       rb.addColorStop(1, 'rgba(255,255,255,0)');
       b.fillStyle = rb;
       b.beginPath();
       b.arc(tamG / 2, tamG / 2, tamG / 2, 0, Math.PI * 2);
       b.fill();
-    }
-
-    function empanar(alfa) {
-      if (alfa <= 0) return;
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.globalAlpha = alfa;
-      ctx.drawImage(vaho, 0, 0, ancho, alto);
-      ctx.globalAlpha = 1;
     }
 
     function nuevaGota(inicial) {
@@ -571,46 +583,69 @@
         y: inicial ? Math.random() * alto : -10 - Math.random() * 40,
         r: r,
         v: 0,
-        espera: inicial ? Math.random() * 400 : Math.random() * 160
+        espera: inicial ? Math.random() * 380 : Math.random() * 150
       };
     }
 
+    // borra sobre la MÁSCARA, no sobre el lienzo
     function borrar(x, y, radio, fuerza) {
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.globalAlpha = fuerza;
-      ctx.drawImage(goma, x - radio, y - radio, radio * 2, radio * 2);
-      ctx.globalAlpha = 1;
+      if (!mctx) return;
+      mctx.globalAlpha = fuerza;
+      mctx.drawImage(goma, x - radio, y - radio, radio * 2, radio * 2);
+      mctx.globalAlpha = 1;
+    }
+
+    function pintar() {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.globalCompositeOperation = 'source-over';
+      ctx.clearRect(0, 0, ancho, alto);
+      ctx.drawImage(vaho, 0, 0, ancho, alto);
+
+      // lo limpiado (gotas, estelas, dedo)
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.drawImage(mascara, 0, 0, ancho, alto);
+      // y lo que va despejando el scroll
+      if (despeje > 0.01) {
+        ctx.fillStyle = 'rgba(0,0,0,' + Math.min(despeje * 1.15, 1).toFixed(3) + ')';
+        ctx.fillRect(0, 0, ancho, alto);
+      }
+      ctx.globalCompositeOperation = 'source-over';
+
+      // el reflejo de cada gota, encima
+      if (despeje < 0.9) {
+        for (var i = 0; i < gotas.length; i++) {
+          var g = gotas[i];
+          if (g.espera > 0) continue;
+          ctx.drawImage(brillo, g.x - g.r * 1.15, g.y - g.r * 1.15, g.r * 2.3, g.r * 2.3);
+        }
+      }
     }
 
     function fotograma() {
       if (!visible || document.hidden) { animando = false; return; }
 
-      // se vuelve a empañar muy despacio; si el scroll ya despejó, nada
-      empanar(0.009 * (1 - despeje));
-      if (despeje > 0.01) {
-        ctx.globalCompositeOperation = 'destination-out';
-        ctx.fillStyle = 'rgba(0,0,0,' + (despeje * 0.05).toFixed(4) + ')';
-        ctx.fillRect(0, 0, ancho, alto);
-        ctx.globalCompositeOperation = 'source-over';
-      }
+      // el cristal se vuelve a empañar: la máscara se desvanece
+      mctx.globalCompositeOperation = 'destination-out';
+      mctx.fillStyle = 'rgba(0,0,0,0.006)';
+      mctx.fillRect(0, 0, ancho, alto);
+      mctx.globalCompositeOperation = 'source-over';
 
       for (var i = 0; i < gotas.length; i++) {
         var g = gotas[i];
-        if (g.espera > 0) { g.espera -= 1; if (g.espera > 0) continue; }
+        if (g.espera > 0) { g.espera -= 1; continue; }
         var antesY = g.y;
-        g.v = Math.min(g.v + 0.008 * (g.r / 4), 1.9);
+        g.v = Math.min(g.v + 0.008 * (g.r / 4), 1.8);
         g.y += g.v;
         g.x += (Math.random() - 0.5) * 0.25;
-        // la estela es más fina que la gota: se dibuja entre las dos posiciones
         var pasos = Math.max(1, Math.ceil((g.y - antesY) / 2));
         for (var p = 1; p <= pasos; p++) {
-          borrar(g.x, antesY + ((g.y - antesY) * p) / pasos, g.r * 0.55, 0.30);
+          borrar(g.x, antesY + ((g.y - antesY) * p) / pasos, g.r * 0.5, 0.26);
         }
-        borrar(g.x, g.y, g.r * 1.05, 0.85);
-        ctx.drawImage(brillo, g.x - g.r * 1.1, g.y - g.r * 1.1, g.r * 2.2, g.r * 2.2);
+        borrar(g.x, g.y, g.r * 1.05, 0.8);
         if (g.y - g.r > alto) gotas[i] = nuevaGota(false);
       }
+
+      pintar();
       requestAnimationFrame(fotograma);
     }
 
@@ -626,7 +661,7 @@
       var x = punto.clientX - caja.left;
       var y = punto.clientY - caja.top;
       if (x < 0 || y < 0 || x > ancho || y > alto) return;
-      borrar(x, y, 42, 0.55);
+      borrar(x, y, 42, 0.5);
     }
 
     medir();
@@ -665,7 +700,6 @@
       });
     }
   }
-
   /* ---------- 17. Preloader e intro del hero ---------- */
 
   function intro() {
