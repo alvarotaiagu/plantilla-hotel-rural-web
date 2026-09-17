@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  SITIO DE DEMOSTRACIÓN — Casa Bricaña es un negocio FICTICIO.
+  Nombre, dirección, teléfonos, precios, textos y opiniones son
+  de muestra y no corresponden a ningún establecimiento real.
+  Plantilla pensada para reskinear a un cliente real del sector.
+  ============================================================
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Casa Bricaña · Casa de turismo rural en Boimorto (A Coruña)</title>
+<meta name="description" content="Casa de piedra de 1873 con cinco habitaciones en el interior de A Coruña. Desayuno de la huerta, sauna de leña y rutas a pie. Sitio de demostración: negocio ficticio.">
+<meta name="theme-color" content="#f3ebdf">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.json">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Casa Bricaña · Casa de turismo rural en Boimorto">
+<meta property="og:description" content="Cinco ventanas abiertas al valle. Casa de piedra de 1873 en el interior de A Coruña. Sitio de demostración.">
+<meta property="og:image" content="assets/og.png">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Karla:ital,wght@0,300..700;1,300..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BedAndBreakfast",
+  "name": "Casa Bricaña",
+  "description": "Casa de turismo rural de cinco habitaciones en el interior de A Coruña. Establecimiento ficticio de demostración.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Lugar de Bricaña, 7",
+    "postalCode": "15818",
+    "addressLocality": "Boimorto",
+    "addressRegion": "A Coruña",
+    "addressCountry": "ES"
+  },
+  "telephone": "+34 981 00 00 00",
+  "email": "reservas@casabricana.example",
+  "numberOfRooms": 5,
+  "petsAllowed": true,
+  "checkinTime": "16:00",
+  "checkoutTime": "12:00",
+  "priceRange": "96 € – 156 €",
+  "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "Desayuno incluido", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Sauna de leña", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Bicicletas", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Wi-Fi", "value": true }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__inner">
+    <svg class="preloader__mark" viewBox="0 0 60 80" role="presentation" focusable="false">
+      <path d="M30 4C30 4 8 34 8 50a22 22 0 0 0 44 0C52 34 30 4 30 4Z" fill="none" stroke="currentColor" stroke-width="2" pathLength="1" class="preloader__drop"></path>
+    </svg>
+    <span class="preloader__word">Casa Bricaña</span>
+  </div>
+</div>
+
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<header class="cabecera" id="cabecera">
+  <a class="marca" href="#inicio" aria-label="Casa Bricaña, inicio">
+    <svg class="marca__mark" viewBox="0 0 60 80" aria-hidden="true" focusable="false">
+      <path d="M30 6C30 6 9 34 9 50a21 21 0 0 0 42 0C51 34 30 6 30 6Z" fill="none" stroke="currentColor" stroke-width="3"></path>
+      <path d="M22 47c0 7 4 12 10 13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".55"></path>
+    </svg>
+    <span class="marca__texto">
+      <span class="marca__nombre">Casa Bricaña</span>
+      <span class="marca__bajada">turismo rural · Boimorto</span>
+    </span>
+  </a>
+
+  <nav class="nav" id="nav" aria-label="Navegación principal">
+    <ul class="nav__lista">
+      <li><a href="#casa">La casa</a></li>
+      <li><a href="#ventanas">Habitaciones</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#ano">El año</a></li>
+      <li><a href="#llegar">Cómo llegar</a></li>
+    </ul>
+    <a class="boton boton--oxido magnetico" href="#reservar">Consultar fechas</a>
+  </nav>
+
+  <button class="hamburguesa" id="hamburguesa" type="button" aria-expanded="false" aria-controls="nav">
+    <span class="hamburguesa__caja" aria-hidden="true"><i></i><i></i></span>
+    <span class="hamburguesa__texto">Menú</span>
+  </button>
+</header>
+
+<div class="pluviometro" id="pluviometro" aria-hidden="true">
+  <svg viewBox="0 0 26 120" focusable="false">
+    <clipPath id="tuboClip"><rect x="7.5" y="10" width="11" height="100" rx="5.5"></rect></clipPath>
+    <rect class="pluviometro__nivel" id="pluviometroNivel" x="7.5" y="10" width="11" height="100" clip-path="url(#tuboClip)"></rect>
+    <rect x="7.5" y="10" width="11" height="100" rx="5.5" fill="none" stroke="currentColor" stroke-width="1.2"></rect>
+    <g stroke="currentColor" stroke-width="1" opacity=".6">
+      <line x1="18.5" y1="35" x2="23" y2="35"></line>
+      <line x1="18.5" y1="60" x2="23" y2="60"></line>
+      <line x1="18.5" y1="85" x2="23" y2="85"></line>
+    </g>
+  </svg>
+  <span class="pluviometro__cifra" id="pluviometroCifra">0</span>
+</div>
+
+<main id="contenido">
+
+  <!-- ============ 01 · HERO: el cristal ============ -->
+  <section class="hero" id="inicio">
+    <div class="hero__foto">
+      <img src="assets/fotos/valle-1600.jpg"
+           srcset="assets/fotos/valle-800.jpg 800w, assets/fotos/valle-1600.jpg 1600w"
+           sizes="100vw" width="1600" height="1067" fetchpriority="high"
+           alt="Amanecer con niebla sobre un valle de robles y prados en el interior de Galicia">
+    </div>
+    <canvas class="hero__cristal" id="cristal" aria-hidden="true"></canvas>
+    <div class="hero__velo" aria-hidden="true"></div>
+
+    <div class="hero__texto">
+      <p class="hero__sobre">Casa de 1873 · cinco habitaciones · Boimorto, A Coruña</p>
+      <h1 class="hero__titular" data-reveal>Amanece con orballo y la casa ya huele a pan</h1>
+      <p class="hero__entrada">Una casa de piedra con la huerta detrás y el robledal delante. Se desayuna a las nueve, se sale a andar a las diez y no hay prisa en volver.</p>
+      <div class="hero__acciones">
+        <a class="boton boton--oxido magnetico" href="#reservar">Consultar fechas</a>
+        <a class="boton boton--linea magnetico" href="#ventanas">Ver las cinco habitaciones</a>
+      </div>
+      <p class="hero__pista" aria-hidden="true">Pasa el dedo por el cristal</p>
+    </div>
+
+    <div class="hero__pie">
+      <span>17 km de Arzúa</span>
+      <span>8 km del Camino Francés</span>
+      <span>48 km de Santiago</span>
+    </div>
+  </section>
+
+  <!-- ============ cinta ============ -->
+  <div class="cinta" aria-hidden="true">
+    <div class="cinta__pista" id="cintaPista">
+      <span>desayuno de la huerta</span><span class="cinta__gota">•</span>
+      <span>sauna de leña</span><span class="cinta__gota">•</span>
+      <span>cinco ventanas</span><span class="cinta__gota">•</span>
+      <span>chimenea encendida de octubre a mayo</span><span class="cinta__gota">•</span>
+      <span>pan del día</span><span class="cinta__gota">•</span>
+      <span>seis hectáreas de robledal</span><span class="cinta__gota">•</span>
+    </div>
+  </div>
+
+  <!-- ============ 02 · LA CASA ============ -->
+  <section class="casa seccion" id="casa">
+    <p class="seccion__indice"><span>01</span> La casa</p>
+
+    <div class="casa__rejilla">
+      <div class="casa__texto">
+        <h2 class="titular titular--grande" data-reveal>Se levantó en 1873 y sigue haciendo lo mismo: guardar del agua</h2>
+        <p>La casa estuvo veinte años con las contraventanas cerradas y la parte del hórreo caída. En 2019 se abrió entera: se rehízo la cubierta con la teja vieja, se sacó el cemento de las paredes y se devolvió la cal por dentro.</p>
+        <p>Lo que no se tocó fue lo que importa: el suelo de castaño del primer piso, la lareira de la cocina y el muro de cachotería que separa la era del prado. Somos <strong>Uxía Lamas y Roi Cortiñas</strong>, vivimos en la casa de al lado y desayunamos con vosotros casi todos los días.</p>
+        <a class="enlace-flecha magnetico" href="#reservar">Preguntar por una fecha<svg viewBox="0 0 24 12" aria-hidden="true" focusable="false"><path d="M0 6h21M16 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg></a>
+      </div>
+
+      <figure class="casa__figura" data-mascara>
+        <img src="assets/fotos/casa-1600.jpg"
+             srcset="assets/fotos/casa-800.jpg 800w, assets/fotos/casa-1600.jpg 1600w"
+             sizes="(max-width: 900px) 92vw, 44vw" width="1600" height="1200" loading="lazy"
+             alt="Casa de piedra con el tejado cubierto de musgo, hiedra en la fachada y jardín delante">
+        <figcaption>La fachada norte, la que recibe toda el agua del año. De ahí el musgo del tejado.</figcaption>
+      </figure>
+    </div>
+
+    <dl class="cifras">
+      <div class="cifra">
+        <dt>Año de la casa</dt>
+        <dd><span class="contador" data-hasta="1873" data-desde="1800">1873</span></dd>
+      </div>
+      <div class="cifra">
+        <dt>Hectáreas de robledal</dt>
+        <dd><span class="contador" data-hasta="6">6</span></dd>
+      </div>
+      <div class="cifra">
+        <dt>Habitaciones</dt>
+        <dd><span class="contador" data-hasta="5">5</span></dd>
+      </div>
+      <div class="cifra">
+        <dt>Litros de lluvia al año</dt>
+        <dd><span class="contador" data-hasta="1420">1420</span></dd>
+      </div>
+    </dl>
+  </section>
+
+  <!-- ============ 03 · LAS CINCO VENTANAS ============ -->
+  <section class="ventanas" id="ventanas">
+    <div class="ventanas__cabecera seccion">
+      <p class="seccion__indice"><span>02</span> Habitaciones</p>
+      <h2 class="titular titular--grande" data-reveal>Cinco ventanas, cinco vistas del mismo valle</h2>
+      <p class="ventanas__entrada">Las habitaciones no se llaman 1, 2 y 3: se llaman como lo que se ve desde ellas. Todas con baño propio, desayuno incluido y ninguna con televisión.</p>
+    </div>
+
+    <div class="ventanas__pista" id="ventanasPista">
+      <div class="ventanas__carro" id="ventanasCarro">
+
+        <article class="ventana" data-orientacion="180">
+          <div class="ventana__marco">
+            <img src="assets/fotos/hab-solaina-1600.jpg" srcset="assets/fotos/hab-solaina-800.jpg 800w, assets/fotos/hab-solaina-1600.jpg 1600w" sizes="(max-width: 900px) 78vw, 30vw" width="1600" height="2400" loading="lazy" alt="Cama deshecha con el sol de la mañana entrando por la ventana">
+            <svg class="ventana__cruz" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M50 0v100M0 50h100" stroke="currentColor" stroke-width="1" fill="none" vector-effect="non-scaling-stroke"></path></svg>
+          </div>
+          <div class="ventana__ficha">
+            <h3>Solaina</h3>
+            <p class="ventana__vista">Da al sur, sobre la era y el hórreo. Es la que se llena de sol a las once.</p>
+            <ul class="ventana__datos">
+              <li><span>Orientación</span><b>Sur</b></li>
+              <li><span>Cama</span><b>160 × 200</b></li>
+              <li><span>Superficie</span><b>24 m²</b></li>
+              <li><span>Plazas</span><b>2</b></li>
+            </ul>
+            <p class="ventana__precio"><b>118 €</b> <span>por noche, desayuno incluido</span></p>
+          </div>
+        </article>
+
+        <article class="ventana" data-orientacion="90">
+          <div class="ventana__marco">
+            <img src="assets/fotos/hab-fento-1600.jpg" srcset="assets/fotos/hab-fento-800.jpg 800w, assets/fotos/hab-fento-1600.jpg 1600w" sizes="(max-width: 900px) 78vw, 30vw" width="1600" height="1067" loading="lazy" alt="Habitación de paredes de madera con dos camas individuales y ropa blanca">
+            <svg class="ventana__cruz" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M50 0v100M0 50h100" stroke="currentColor" stroke-width="1" fill="none" vector-effect="non-scaling-stroke"></path></svg>
+          </div>
+          <div class="ventana__ficha">
+            <h3>Fento</h3>
+            <p class="ventana__vista">Al este, contra el robledal. En junio entra el primer sol a las siete menos cuarto.</p>
+            <ul class="ventana__datos">
+              <li><span>Orientación</span><b>Este</b></li>
+              <li><span>Camas</span><b>2 × 90</b></li>
+              <li><span>Superficie</span><b>19 m²</b></li>
+              <li><span>Plazas</span><b>2</b></li>
+            </ul>
+            <p class="ventana__precio"><b>96 €</b> <span>por noche, desayuno incluido</span></p>
+          </div>
+        </article>
+
+        <article class="ventana" data-orientacion="0">
+          <div class="ventana__marco">
+            <img src="assets/fotos/hab-lousado-1600.jpg" srcset="assets/fotos/hab-lousado-800.jpg 800w, assets/fotos/hab-lousado-1600.jpg 1600w" sizes="(max-width: 900px) 78vw, 30vw" width="1600" height="1067" loading="lazy" alt="Habitación amplia con cabecero de madera, mesita y flores junto a la cama">
+            <svg class="ventana__cruz" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M50 0v100M0 50h100" stroke="currentColor" stroke-width="1" fill="none" vector-effect="non-scaling-stroke"></path></svg>
+          </div>
+          <div class="ventana__ficha">
+            <h3>Lousado</h3>
+            <p class="ventana__vista">Al norte, sobre el muro de cachotería. La más fresca en agosto y la única con sitio para una tercera cama.</p>
+            <ul class="ventana__datos">
+              <li><span>Orientación</span><b>Norte</b></li>
+              <li><span>Camas</span><b>160 + 90</b></li>
+              <li><span>Superficie</span><b>26 m²</b></li>
+              <li><span>Plazas</span><b>3</b></li>
+            </ul>
+            <p class="ventana__precio"><b>132 €</b> <span>por noche, desayuno incluido</span></p>
+          </div>
+        </article>
+
+        <article class="ventana" data-orientacion="270">
+          <div class="ventana__marco">
+            <img src="assets/fotos/hab-bidueira-1600.jpg" srcset="assets/fotos/hab-bidueira-800.jpg 800w, assets/fotos/hab-bidueira-1600.jpg 1600w" sizes="(max-width: 900px) 78vw, 30vw" width="1600" height="2397" loading="lazy" alt="Dormitorio luminoso con plantas junto a una ventana grande">
+            <svg class="ventana__cruz" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M50 0v100M0 50h100" stroke="currentColor" stroke-width="1" fill="none" vector-effect="non-scaling-stroke"></path></svg>
+          </div>
+          <div class="ventana__ficha">
+            <h3>Bidueira</h3>
+            <p class="ventana__vista">Al oeste, sobre los abedules del río. Se pone el sol justo en el marco de la ventana.</p>
+            <ul class="ventana__datos">
+              <li><span>Orientación</span><b>Oeste</b></li>
+              <li><span>Cama</span><b>150 × 190</b></li>
+              <li><span>Superficie</span><b>21 m²</b></li>
+              <li><span>Plazas</span><b>2</b></li>
+            </ul>
+            <p class="ventana__precio"><b>108 €</b> <span>por noche, desayuno incluido</span></p>
+          </div>
+        </article>
+
+        <article class="ventana" data-orientacion="225">
+          <div class="ventana__marco">
+            <img src="assets/fotos/hab-palleira-1600.jpg" srcset="assets/fotos/hab-palleira-800.jpg 800w, assets/fotos/hab-palleira-1600.jpg 1600w" sizes="(max-width: 900px) 78vw, 30vw" width="1600" height="1068" loading="lazy" alt="Buhardilla encalada con cama de madera, ropa blanca y albornoces doblados">
+            <svg class="ventana__cruz" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M50 0v100M0 50h100" stroke="currentColor" stroke-width="1" fill="none" vector-effect="non-scaling-stroke"></path></svg>
+          </div>
+          <div class="ventana__ficha">
+            <h3>Palleira</h3>
+            <p class="ventana__vista">Bajo la cubierta, donde se guardaba la paja. Dos ventanas pequeñas al suroeste y el tejado a la vista.</p>
+            <ul class="ventana__datos">
+              <li><span>Orientación</span><b>Suroeste</b></li>
+              <li><span>Camas</span><b>160 + litera</b></li>
+              <li><span>Superficie</span><b>34 m²</b></li>
+              <li><span>Plazas</span><b>4</b></li>
+            </ul>
+            <p class="ventana__precio"><b>156 €</b> <span>por noche, desayuno incluido</span></p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="ventanas__brujula" aria-hidden="true">
+      <svg viewBox="0 0 120 120" focusable="false">
+        <circle cx="60" cy="60" r="46" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"></circle>
+        <circle cx="60" cy="60" r="34" fill="none" stroke="currentColor" stroke-width="1" opacity=".2"></circle>
+        <text x="60" y="18" text-anchor="middle" class="brujula__letra">N</text>
+        <text x="106" y="65" text-anchor="middle" class="brujula__letra">L</text>
+        <text x="60" y="112" text-anchor="middle" class="brujula__letra">S</text>
+        <text x="14" y="65" text-anchor="middle" class="brujula__letra">O</text>
+        <g id="brujulaAguja">
+          <path d="M60 26 65 60 60 94 55 60Z" fill="currentColor" opacity=".85"></path>
+        </g>
+      </svg>
+      <span class="ventanas__arrastra">arrastra / rueda</span>
+    </div>
+  </section>
+
+  <!-- ============ 04 · SERVICIOS (pila) ============ -->
+  <section class="servicios" id="servicios">
+    <div class="servicios__intro seccion">
+      <p class="seccion__indice"><span>03</span> Lo que hace la casa por ti</p>
+      <h2 class="titular" data-reveal>Cinco cosas que no hace falta pedir dos veces</h2>
+    </div>
+
+    <ol class="pila" id="pila">
+      <li class="pila__item">
+        <article class="tarjeta">
+          <div class="tarjeta__texto">
+            <p class="tarjeta__num">01</p>
+            <h3>Desayuno de la huerta</h3>
+            <p>De 8:30 a 10:30 en la cocina vieja. Pan de la aldea, huevos de las gallinas del cierre, miel del colmenar de Roi, queso del mercado de Arzúa y tarta de manzana reineta. Los domingos, filloas. Está incluido en todas las habitaciones.</p>
+            <p class="tarjeta__nota">Sin gluten y vegano avisando la víspera.</p>
+          </div>
+          <div class="tarjeta__dibujo">
+            <svg viewBox="0 0 200 160" aria-hidden="true" focusable="false">
+              <ellipse cx="100" cy="122" rx="70" ry="13" fill="none" stroke="currentColor" stroke-width="2" opacity=".35"></ellipse>
+              <path d="M52 118c-6-22 10-38 34-38 10-16 34-16 44-2 20-2 30 14 24 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>
+              <path d="M74 80c4-8 14-10 20-4" fill="none" stroke="currentColor" stroke-width="2" opacity=".6"></path>
+              <path d="M136 116h26a10 10 0 0 0 0-20h-6" fill="none" stroke="currentColor" stroke-width="3"></path>
+              <path d="M96 52c0-8 6-10 6-18M110 52c0-8 6-10 6-18" fill="none" stroke="currentColor" stroke-width="2" opacity=".5" stroke-linecap="round"></path>
+            </svg>
+          </div>
+        </article>
+      </li>
+
+      <li class="pila__item">
+        <article class="tarjeta">
+          <div class="tarjeta__texto">
+            <p class="tarjeta__num">02</p>
+            <h3>Sauna de leña en la antigua cuadra</h3>
+            <p>La encendemos con carballo de la finca; tarda una hora larga en coger temperatura, así que se reserva por la mañana para la tarde. Turnos de 90 minutos para un máximo de cuatro personas.</p>
+            <p class="tarjeta__nota">25 € por turno · toallas incluidas.</p>
+          </div>
+          <div class="tarjeta__dibujo">
+            <svg viewBox="0 0 200 160" aria-hidden="true" focusable="false">
+              <rect x="44" y="54" width="112" height="74" rx="6" fill="none" stroke="currentColor" stroke-width="3"></rect>
+              <path d="M44 76h112M44 98h112" stroke="currentColor" stroke-width="2" opacity=".4"></path>
+              <path d="M88 46c0-10 12-12 12-22 8 8 10 14 6 22M114 46c0-8 8-10 8-18 6 6 8 12 4 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+              <circle cx="100" cy="112" r="8" fill="none" stroke="currentColor" stroke-width="2.5"></circle>
+            </svg>
+          </div>
+        </article>
+      </li>
+
+      <li class="pila__item">
+        <article class="tarjeta">
+          <div class="tarjeta__texto">
+            <p class="tarjeta__num">03</p>
+            <h3>Cena por encargo</h3>
+            <p>De martes a sábado, avisando con 24 horas. Menú único de tres pasos con lo que haya en la huerta y en el mercado: caldo, un guiso o pescado de la lonja y postre de la casa. Se cena a las 20:30 en la mesa larga.</p>
+            <p class="tarjeta__nota">28 € por persona, bebida aparte.</p>
+          </div>
+          <div class="tarjeta__dibujo">
+            <svg viewBox="0 0 200 160" aria-hidden="true" focusable="false">
+              <circle cx="100" cy="90" r="42" fill="none" stroke="currentColor" stroke-width="3"></circle>
+              <circle cx="100" cy="90" r="28" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".45"></circle>
+              <path d="M40 44v34M52 44v34M46 78v40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+              <path d="M156 44c-8 6-8 26 0 30v44" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+            </svg>
+          </div>
+        </article>
+      </li>
+
+      <li class="pila__item">
+        <article class="tarjeta">
+          <div class="tarjeta__texto">
+            <p class="tarjeta__num">04</p>
+            <h3>Bicicletas y botas prestadas</h3>
+            <p>Cuatro bicicletas de paseo con alforjas para bajar al Camino Francés, que pasa a ocho kilómetros. Y un armario de botas de agua y chubasqueros de todas las tallas, porque aquí llueve y no pasa nada.</p>
+            <p class="tarjeta__nota">Bicicleta 15 € el día · botas y chubasquero, gratis.</p>
+          </div>
+          <div class="tarjeta__dibujo">
+            <svg viewBox="0 0 200 160" aria-hidden="true" focusable="false">
+              <circle cx="54" cy="108" r="26" fill="none" stroke="currentColor" stroke-width="3"></circle>
+              <circle cx="146" cy="108" r="26" fill="none" stroke="currentColor" stroke-width="3"></circle>
+              <path d="M54 108 84 62h26l-26 46h62" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"></path>
+              <path d="M84 62h-14M146 108l-10-34h-16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>
+            </svg>
+          </div>
+        </article>
+      </li>
+
+      <li class="pila__item">
+        <article class="tarjeta">
+          <div class="tarjeta__texto">
+            <p class="tarjeta__num">05</p>
+            <h3>Rutas dibujadas a mano</h3>
+            <p>Cuatro recorridos que salen del portón: el del río (5 km, llano), el de los hórreos (9 km), la subida al alto de Sanguiñedo (13 km, con vistas a la sierra) y el enlace con el Camino Francés (8 km). Te los damos en papel y con las cuestas avisadas.</p>
+            <p class="tarjeta__nota">Mapa de la casa, gratis, con la cocina abierta al volver.</p>
+          </div>
+          <div class="tarjeta__dibujo">
+            <svg viewBox="0 0 200 160" aria-hidden="true" focusable="false">
+              <path d="M24 130c26-6 20-40 44-46s28 18 50 10 20-44 58-52" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 9" stroke-linejoin="round"></path>
+              <path d="M150 34a10 10 0 1 1 0 20 10 10 0 0 1 0-20Z" fill="none" stroke="currentColor" stroke-width="2.5"></path>
+              <path d="M24 130l10-16 8 10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+        </article>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ============ 05 · LA MESA ============ -->
+  <section class="mesa seccion" id="mesa">
+    <p class="seccion__indice"><span>04</span> La mesa</p>
+    <div class="mesa__rejilla">
+      <figure class="mesa__figura" data-mascara>
+        <img src="assets/fotos/desayuno-1600.jpg" srcset="assets/fotos/desayuno-800.jpg 800w, assets/fotos/desayuno-1600.jpg 1600w" sizes="(max-width: 900px) 92vw, 42vw" width="1600" height="1067" loading="lazy" alt="Pan casero con mermelada de arándanos, café con leche y cuchillo sobre una tabla de madera">
+        <figcaption>La mesa larga de la cocina vieja, a las nueve.</figcaption>
+      </figure>
+      <div class="mesa__texto">
+        <h2 class="titular" data-reveal>Se come lo que hay, y hay bastante</h2>
+        <ul class="lista-mesa">
+          <li><b>Desayuno</b><span>Incluido</span><em>8:30 – 10:30 · pan de la aldea, huevos, miel, queso, fruta de la huerta y tarta del día.</em></li>
+          <li><b>Cena de la casa</b><span>28 €</span><em>Martes a sábado, con 24 h de aviso. Tres pasos y postre.</em></li>
+          <li><b>Cesta para el camino</b><span>9 €</span><em>Bocadillo, fruta, agua y un trozo de tarta, lista a las ocho.</em></li>
+          <li><b>Merienda de tarde</b><span>6 €</span><em>Café de puchero y bizcocho, junto a la lareira, de 17:00 a 19:00.</em></li>
+          <li><b>Vino de la comarca</b><span>14 – 22 €</span><em>Cuatro botellas de la Ribeira Sacra y dos de Betanzos.</em></li>
+        </ul>
+        <p class="mesa__pie">Precios de muestra para esta demostración. Avísanos de alergias e intolerancias al reservar: la cocina es pequeña y se adapta bien.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 06 · EL AÑO DE LA CASA ============ -->
+  <section class="ano seccion" id="ano">
+    <p class="seccion__indice"><span>05</span> El año</p>
+    <h2 class="titular titular--grande" data-reveal>Doce meses y tres tarifas</h2>
+    <p class="ano__entrada">No hay dos meses iguales en el valle, así que tampoco hay una única tarifa. Elige un mes y mira lo que te encuentras.</p>
+
+    <div class="ano__barra" role="tablist" aria-label="Meses del año">
+      <button class="mes" role="tab" aria-selected="true" id="mes-1" aria-controls="panel-ano" data-mes="1"><span>Ene</span></button>
+      <button class="mes" role="tab" aria-selected="false" tabindex="-1" id="mes-2" aria-controls="panel-ano" data-mes="2"><span>Feb</span></button>
+      <button class="mes" role="tab" aria-selected="false" tabindex="-1" id="mes-3" aria-controls="panel-ano" data-mes="3"><span>Mar</span></button>
+      <button class="mes" role="tab" aria-selected="false" tabindex="-1" id="mes-4" aria-controls="panel-ano" data-mes="4"><span>Abr</span></button>
+      <button class="mes" role="tab" aria-selected="false" tabindex="-1" id="mes-5" aria-controls="panel-ano" data-mes="5"><span>May</span></button>
+      <button class="mes" role="tab" aria-selected="false" tabindex="-1" id="mes-6" aria-controls="panel-ano" data-mes="6"><span>Jun</span></button>
+      <button class="mes" role="tab" aria-selected="false" tabindex="-1" id="mes-7" aria-controls="panel-ano" data-mes="7"><span>Jul</span></button>
+      <button class="mes" role="tab" aria-selected="false" tabindex="-1" id="mes-8" aria-controls="panel-ano" data-mes="8"><span>Ago</span></button>
+      <button class="mes" role="tab" aria-selected="false" tabindex="-1" id="mes-9" aria-controls="panel-ano" data-mes="9"><span>Sep</span></button>
+      <button class="mes" role="tab" aria-selected="false" tabindex="-1" id="mes-10" aria-controls="panel-ano" data-mes="10"><span>Oct</span></button>
+      <button class="mes" role="tab" aria-selected="false" tabindex="-1" id="mes-11" aria-controls="panel-ano" data-mes="11"><span>Nov</span></button>
+      <button class="mes" role="tab" aria-selected="false" tabindex="-1" id="mes-12" aria-controls="panel-ano" data-mes="12"><span>Dic</span></button>
+    </div>
+
+    <div class="ano__panel" id="panel-ano" role="tabpanel" aria-labelledby="mes-1" tabindex="0">
+      <div class="ano__columna">
+        <p class="ano__temporada" id="anoTemporada">Temporada baja</p>
+        <h3 class="ano__nombre" id="anoNombre">Enero</h3>
+        <p class="ano__frase" id="anoFrase">Niebla hasta el mediodía y la lareira encendida desde las cinco. El mejor mes para no hacer nada.</p>
+        <ul class="ano__lista" id="anoLista">
+          <li>Chimenea encendida todos los días</li>
+          <li>Caldo de grelos en la cena</li>
+          <li>Sauna con descuento entre semana</li>
+        </ul>
+      </div>
+      <div class="ano__columna ano__columna--dato">
+        <p class="ano__etiqueta">Doble desde</p>
+        <p class="ano__precio"><span id="anoPrecio">82</span> €</p>
+        <p class="ano__etiqueta">Lluvia media del mes</p>
+        <p class="ano__lluvia"><span id="anoLluvia">186</span> l/m²</p>
+        <div class="ano__probeta" aria-hidden="true">
+          <div class="ano__nivel" id="anoNivel"></div>
+        </div>
+      </div>
+      <figure class="ano__figura">
+        <img id="anoFoto" src="assets/fotos/lareira-1600.jpg" srcset="assets/fotos/lareira-800.jpg 800w, assets/fotos/lareira-1600.jpg 1600w" sizes="(max-width: 900px) 92vw, 30vw" width="1600" height="1067" loading="lazy" alt="Leña ardiendo en una chimenea encendida">
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ 07 · VOCES ============ -->
+  <section class="voces seccion" id="voces">
+    <p class="seccion__indice"><span>06</span> Voces</p>
+    <h2 class="titular" data-reveal>Lo que escriben en el cuaderno de la entrada</h2>
+    <p class="voces__aviso">Opiniones de muestra, escritas para esta demostración. No proceden de ninguna plataforma ni de ningún huésped real.</p>
+    <div class="voces__rejilla">
+      <blockquote class="voz">
+        <p>Llegamos con la idea de quedarnos dos noches y nos fuimos al cuarto día. La habitación del norte tiene una pared de piedra que da gusto tocar.</p>
+        <footer><b>Marta R.</b><span>tres noches en Lousado · marzo</span></footer>
+      </blockquote>
+      <blockquote class="voz">
+        <p>El desayuno es de los que te quitan la comida. Y lo de las botas prestadas nos salvó la ruta del río, que la hicimos con orballo del bueno.</p>
+        <footer><b>Iago F.</b><span>dos noches en Fento · noviembre</span></footer>
+      </blockquote>
+      <blockquote class="voz">
+        <p>Subimos con dos críos a la buhardilla y no querían bajar. Se durmieron oyendo la lluvia en la teja.</p>
+        <footer><b>Nuria y Carlos</b><span>cuatro noches en Palleira · agosto</span></footer>
+      </blockquote>
+      <blockquote class="voz">
+        <p>La sauna después de trece kilómetros de cuesta debería estar en la Seguridad Social.</p>
+        <footer><b>Anxo P.</b><span>una noche en Bidueira · octubre</span></footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ============ 08 · RESERVAR ============ -->
+  <section class="reservar seccion" id="reservar">
+    <p class="seccion__indice"><span>07</span> Reservar</p>
+    <div class="reservar__rejilla">
+      <div class="reservar__texto">
+        <h2 class="titular titular--grande" data-reveal>Escríbenos y te contestamos el mismo día</h2>
+        <p>No trabajamos con motor de reservas: preferimos saber quién viene. Cuéntanos las fechas y te decimos qué ventana queda libre.</p>
+
+        <ul class="reservar__datos">
+          <li><span>Teléfono</span><a href="tel:+34981000000">981 00 00 00</a></li>
+          <li><span>WhatsApp</span><a href="https://wa.me/34600000000" rel="noopener">600 00 00 00</a></li>
+          <li><span>Correo</span><a href="mailto:reservas@casabricana.example">reservas@casabricana.example</a></li>
+          <li><span>Dirección</span>Lugar de Bricaña, 7 · 15818 Boimorto (A Coruña)</li>
+        </ul>
+
+        <div class="normas">
+          <h3>Lo que conviene saber</h3>
+          <ul>
+            <li>Entrada de 16:00 a 20:00, salida hasta las 12:00.</li>
+            <li>Dos noches mínimo en julio, agosto y puentes.</li>
+            <li>Perros en Fento y Palleira, 12 € por estancia.</li>
+            <li>No se fuma dentro. En la era, con cenicero, sí.</li>
+            <li>La casa tiene escaleras de castaño y no hay ascensor.</li>
+            <li>Cancelación gratuita hasta siete días antes.</li>
+          </ul>
+        </div>
+      </div>
+
+      <form class="formulario" id="formulario" novalidate>
+        <p class="formulario__aviso">Formulario de demostración: no envía nada ni guarda datos.</p>
+        <div class="campo">
+          <label for="f-nombre">Nombre</label>
+          <input type="text" id="f-nombre" name="nombre" autocomplete="name" placeholder="Uxía Lamas">
+        </div>
+        <div class="campo campo--doble">
+          <div>
+            <label for="f-entrada">Entrada</label>
+            <input type="date" id="f-entrada" name="entrada">
+          </div>
+          <div>
+            <label for="f-salida">Salida</label>
+            <input type="date" id="f-salida" name="salida">
+          </div>
+        </div>
+        <div class="campo campo--doble">
+          <div>
+            <label for="f-habitacion">Habitación</label>
+            <select id="f-habitacion" name="habitacion">
+              <option>La que mejor encaje</option>
+              <option>Solaina · 118 €</option>
+              <option>Fento · 96 €</option>
+              <option>Lousado · 132 €</option>
+              <option>Bidueira · 108 €</option>
+              <option>Palleira · 156 €</option>
+            </select>
+          </div>
+          <div>
+            <label for="f-personas">Personas</label>
+            <select id="f-personas" name="personas">
+              <option>1</option><option selected>2</option><option>3</option><option>4</option><option>5 o más</option>
+            </select>
+          </div>
+        </div>
+        <div class="campo">
+          <label for="f-mensaje">Cuéntanos</label>
+          <textarea id="f-mensaje" name="mensaje" rows="4" placeholder="Venimos con perro y nos gustaría cenar el viernes."></textarea>
+        </div>
+        <label class="casilla"><input type="checkbox" id="f-acepto"> <span>He leído el <a href="privacidad.html">aviso de privacidad</a>.</span></label>
+        <button class="boton boton--oxido magnetico" type="submit">Solicitar disponibilidad</button>
+        <p class="formulario__respuesta" id="formularioRespuesta" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ 09 · CÓMO LLEGAR ============ -->
+  <section class="llegar seccion" id="llegar">
+    <p class="seccion__indice"><span>08</span> Cómo llegar</p>
+    <div class="llegar__rejilla">
+      <div class="llegar__texto">
+        <h2 class="titular" data-reveal>A veinte minutos de la autovía y a mil años de ella</h2>
+        <ul class="llegar__lista">
+          <li><b>En coche</b><span>Desde la A-6, salida de Arzúa y 17 km por comarcal. Hay sitio para cinco coches en la era.</span></li>
+          <li><b>En tren</b><span>Estación de Santiago y 48 km. Recogemos en Arzúa avisando (12 € por trayecto).</span></li>
+          <li><b>A pie</b><span>El Camino Francés pasa a 8 km; el desvío está señalizado con una flecha de la casa.</span></li>
+          <li><b>En bicicleta</b><span>Última cuesta de 1,2 km al 7 %. Aviso dado.</span></li>
+        </ul>
+      </div>
+      <div class="llegar__mapa">
+        <div class="mapa-consent" id="mapaConsent">
+          <svg class="mapa-consent__dibujo" viewBox="0 0 320 200" aria-hidden="true" focusable="false">
+            <path d="M0 150c40-10 60-40 110-40s70 34 120 24 70-40 90-46" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".5"></path>
+            <path d="M0 176c50-6 70-26 116-26s66 26 116 18 68-28 88-32" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".3"></path>
+            <path d="M40 40h60v42H40z" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".45"></path>
+            <path d="M160 24h34v28h-34zM214 60h52v34h-52z" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".35"></path>
+            <circle cx="160" cy="110" r="7" fill="currentColor"></circle>
+            <path d="M160 117v26" stroke="currentColor" stroke-width="1.6"></path>
+          </svg>
+          <p>El mapa lo carga Google y pone cookies suyas. Solo aparece si lo pides tú.</p>
+          <button class="boton boton--linea" type="button" id="mapaBoton">Cargar el mapa de Google</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pie" id="pie">
+  <div class="pie__rejilla">
+    <div class="pie__marca">
+      <svg class="marca__mark" viewBox="0 0 60 80" aria-hidden="true" focusable="false">
+        <path d="M30 6C30 6 9 34 9 50a21 21 0 0 0 42 0C51 34 30 6 30 6Z" fill="none" stroke="currentColor" stroke-width="3"></path>
+        <path d="M22 47c0 7 4 12 10 13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".55"></path>
+      </svg>
+      <p class="pie__nombre">Casa Bricaña</p>
+      <p class="pie__lema">Cinco ventanas al valle, desde 1873.</p>
+    </div>
+    <div class="pie__bloque">
+      <h2>Dónde</h2>
+      <p>Lugar de Bricaña, 7<br>15818 Boimorto · A Coruña</p>
+      <p><a href="tel:+34981000000">981 00 00 00</a><br><a href="mailto:reservas@casabricana.example">reservas@casabricana.example</a></p>
+    </div>
+    <div class="pie__bloque">
+      <h2>Horarios</h2>
+      <p>Entrada 16:00 – 20:00<br>Salida hasta 12:00<br>Desayuno 8:30 – 10:30<br>Cena (con aviso) 20:30</p>
+    </div>
+    <div class="pie__bloque">
+      <h2>Legal</h2>
+      <ul>
+        <li><a href="aviso-legal.html">Aviso legal</a></li>
+        <li><a href="privacidad.html">Privacidad y cookies</a></li>
+        <li><a href="#inicio">Volver arriba</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="pie__demo"><strong>Sitio de demostración.</strong> Casa Bricaña es un negocio ficticio; los datos, fotografías y opiniones son de muestra.</p>
+  <p class="pie__creditos">Fotografías de archivo con licencia Pexels, acreditadas en <code>CREDITOS.md</code>. Ilustraciones y logotipo, dibujados en SVG para esta plantilla.</p>
+</footer>
+
+<div class="cookie-banner" id="cookieBanner" hidden role="dialog" aria-labelledby="cookieTitulo" aria-describedby="cookieTexto">
+  <div class="cookie-banner__texto">
+    <h2 id="cookieTitulo">Sobre las cookies</h2>
+    <p id="cookieTexto">Esta web no usa cookies de seguimiento ni analítica. Solo guardamos en tu navegador que ya has visto este aviso. El mapa de Google únicamente se carga si pulsas el botón.</p>
+  </div>
+  <div class="cookie-banner__acciones">
+    <a class="cookie-banner__mas" href="privacidad.html">Más detalle</a>
+    <button class="boton boton--oxido" type="button" id="cookieAceptar">Entendido</button>
+  </div>
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true">
+  <span class="cursor__gota"></span>
+  <span class="cursor__texto" id="cursorTexto"></span>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

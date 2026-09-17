@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Casa Bricaña">
+  <rect width="64" height="64" rx="12" fill="#f4ece1"/>
+  <path d="M32 10C32 10 14 34 14 45a18 18 0 0 0 36 0C50 34 32 10 32 10Z" fill="none" stroke="#a44f28" stroke-width="4"/>
+  <path d="M24 43c0 6 3.5 10.5 8.5 11.5" fill="none" stroke="#a44f28" stroke-width="3.4" stroke-linecap="round" opacity=".5"/>
+  <path d="M23 46h18l-9-9z" fill="#263528"/>
+  <rect x="27.5" y="46" width="9" height="8" fill="#263528"/>
+</svg>
